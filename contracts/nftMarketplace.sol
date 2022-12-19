@@ -15,7 +15,7 @@ error NftMarketplace_NotProceeds();
 error NftMarketPlace_TransferFailed();
   
 
-contract Marketplace is ReentrancyGuard {
+contract nftMarketplace is ReentrancyGuard {
 
     struct Listing{
         uint256 price;
