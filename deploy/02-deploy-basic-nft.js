@@ -22,7 +22,7 @@ log("----------------------------------------------------")
 
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
         log("Verifying...")
-        await verify(basicNft.address, arguments)
+        await verify(basicNft.address, args)
     }
     log("----------------------------------------------------")
 }
