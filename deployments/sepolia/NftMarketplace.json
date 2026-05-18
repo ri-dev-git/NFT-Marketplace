@@ -1,0 +1,831 @@
+{
+  "address": "0x8798081D41e4737E8AC45114260A89C871378E2B",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "EnforcedPause",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ExpectedPause",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "NftMarketplace__AlreadyListed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NftMarketplace__CannotBuyOwnListing",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NftMarketplace__NoProceeds",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NftMarketplace__NotApprovedForMarketplace",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "NftMarketplace__NotListed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NftMarketplace__NotOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NftMarketplace__NotSeller",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NftMarketplace__PriceMustBeAboveZero",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "NftMarketplace__PriceNotMet",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NftMarketplace__TransferFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NftMarketplace__ZeroAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ReentrancyGuardReentrantCall",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "ItemBought",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "ItemCancelled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "ItemListed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "ItemUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Paused",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "ProceedsWithdrawn",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Unpaused",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "buyItem",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "cancelListing",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getListing",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "price",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "seller",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct NftMarketplace.Listing",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        }
+      ],
+      "name": "getProceeds",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "listItem",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "unpause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "newPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateListing",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdrawProceeds",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xdb6f1b5e18d82a04b270ab5a858ad9da7c21fe7ed0d4aee4ebca6ee49162fd35",
+  "receipt": {
+    "to": null,
+    "from": "0x91eEA0C693a87C10C1295ACa8B377d05C3F4897a",
+    "contractAddress": "0x8798081D41e4737E8AC45114260A89C871378E2B",
+    "transactionIndex": 82,
+    "gasUsed": "902029",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000001000000000000000000000000000000000000020000000000000000000800000000000000000000000000000000400000000000000000000000000000000001000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000200000000000000000000000000000000000400000000000000000020000000000000000000000000000000000000000000800000000000000000000000",
+    "blockHash": "0x06b043ebdb7ab2c31a8d6794e28a9532cccb5f24976ce0495257659df47c1f65",
+    "transactionHash": "0xdb6f1b5e18d82a04b270ab5a858ad9da7c21fe7ed0d4aee4ebca6ee49162fd35",
+    "logs": [
+      {
+        "transactionIndex": 82,
+        "blockNumber": 10873499,
+        "transactionHash": "0xdb6f1b5e18d82a04b270ab5a858ad9da7c21fe7ed0d4aee4ebca6ee49162fd35",
+        "address": "0x8798081D41e4737E8AC45114260A89C871378E2B",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x00000000000000000000000091eea0c693a87c10c1295aca8b377d05c3f4897a"
+        ],
+        "data": "0x",
+        "logIndex": 218,
+        "blockHash": "0x06b043ebdb7ab2c31a8d6794e28a9532cccb5f24976ce0495257659df47c1f65"
+      }
+    ],
+    "blockNumber": 10873499,
+    "cumulativeGasUsed": "11138487",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "90734d629b6194f255bf46aa0b0a87ae",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.28+commit.7893614a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"EnforcedPause\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ExpectedPause\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"NftMarketplace__AlreadyListed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NftMarketplace__CannotBuyOwnListing\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NftMarketplace__NoProceeds\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NftMarketplace__NotApprovedForMarketplace\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"NftMarketplace__NotListed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NftMarketplace__NotOwner\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NftMarketplace__NotSeller\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NftMarketplace__PriceMustBeAboveZero\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"NftMarketplace__PriceNotMet\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NftMarketplace__TransferFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NftMarketplace__ZeroAddress\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReentrancyGuardReentrantCall\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"ItemBought\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"ItemCancelled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"ItemListed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newPrice\",\"type\":\"uint256\"}],\"name\":\"ItemUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"ProceedsWithdrawn\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"buyItem\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"cancelListing\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"getListing\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"}],\"internalType\":\"struct NftMarketplace.Listing\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"}],\"name\":\"getProceeds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"listItem\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"newPrice\",\"type\":\"uint256\"}],\"name\":\"updateListing\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdrawProceeds\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"Babbage Lab (babbagelab.tech)\",\"details\":\"Security model:           - ReentrancyGuard on every state-changing function           - Pausable emergency stop controlled by owner           - Checks-Effects-Interactions pattern throughout           - isSeller check on cancel/update prevents griefing by third parties\",\"errors\":{\"EnforcedPause()\":[{\"details\":\"The operation failed because the contract is paused.\"}],\"ExpectedPause()\":[{\"details\":\"The operation failed because the contract is not paused.\"}],\"OwnableInvalidOwner(address)\":[{\"details\":\"The owner is not a valid owner account. (eg. `address(0)`)\"}],\"OwnableUnauthorizedAccount(address)\":[{\"details\":\"The caller account is not authorized to perform an operation.\"}],\"ReentrancyGuardReentrantCall()\":[{\"details\":\"Unauthorized reentrant call.\"}]},\"events\":{\"Paused(address)\":{\"details\":\"Emitted when the pause is triggered by `account`.\"},\"Unpaused(address)\":{\"details\":\"Emitted when the pause is lifted by `account`.\"}},\"kind\":\"dev\",\"methods\":{\"buyItem(address,uint256)\":{\"details\":\"Follows Checks-Effects-Interactions:           1. Checks  \\u2014 price met, not own listing           2. Effects \\u2014 credit seller proceeds, delete listing           3. Interact \\u2014 safeTransferFrom NFT to buyer         Reverts when the marketplace is paused.\",\"params\":{\"nftAddress\":\"The ERC-721 contract address of the token to buy.\",\"tokenId\":\"The token ID to buy.\"}},\"cancelListing(address,uint256)\":{\"details\":\"Checks the stored seller address, not the current NFT owner. This correctly         allows cancellation even if the underlying NFT was transferred after listing,         and prevents a new token holder from cancelling someone else's listing.\",\"params\":{\"nftAddress\":\"The ERC-721 contract address of the listed token.\",\"tokenId\":\"The token ID of the listing to cancel.\"}},\"getListing(address,uint256)\":{\"params\":{\"nftAddress\":\"The ERC-721 contract address.\",\"tokenId\":\"The token ID.\"},\"returns\":{\"_0\":\"A Listing struct with price and seller. Price is 0 if not listed.\"}},\"getProceeds(address)\":{\"params\":{\"seller\":\"The seller's wallet address.\"},\"returns\":{\"_0\":\"Amount in wei available to withdraw.\"}},\"listItem(address,uint256,uint256)\":{\"details\":\"The NFT stays in the seller's wallet. The marketplace must be approved         to transfer it before this call (via ERC-721 approve or setApprovalForAll).         Reverts when the marketplace is paused.\",\"params\":{\"nftAddress\":\"The ERC-721 contract address of the token to list.\",\"price\":\"The sale price in wei. Must be greater than zero.\",\"tokenId\":\"The token ID to list.\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"pause()\":{\"details\":\"Only callable by the contract owner. Use in the event of a critical bug.\"},\"paused()\":{\"details\":\"Returns true if the contract is paused, and false otherwise.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"unpause()\":{\"details\":\"Only callable by the contract owner.\"},\"updateListing(address,uint256,uint256)\":{\"details\":\"Emits ItemUpdated (not ItemListed) so off-chain indexers can distinguish         a price change from a brand-new listing. Only the original seller may update.         Reverts when the marketplace is paused.\",\"params\":{\"newPrice\":\"The new sale price in wei. Must be greater than zero.\",\"nftAddress\":\"The ERC-721 contract address of the listed token.\",\"tokenId\":\"The token ID of the listing to update.\"}},\"withdrawProceeds()\":{\"details\":\"Pull-over-push pattern: sellers accumulate proceeds in a mapping and         withdraw on demand. This avoids push failures if a seller is a contract.         Balance is zeroed before the transfer (CEI) to prevent reentrancy,         and nonReentrant provides a second layer of defence.\"}},\"stateVariables\":{\"s_listings\":{\"details\":\"NFT contract address \\u2192 Token ID \\u2192 Listing details\"},\"s_proceeds\":{\"details\":\"Seller address \\u2192 Accumulated proceeds in wei (pull-over-push pattern)\"}},\"title\":\"NftMarketplace\",\"version\":1},\"userdoc\":{\"events\":{\"ItemBought(address,address,uint256,uint256)\":{\"notice\":\"Fired when an NFT is purchased.\"},\"ItemCancelled(address,address,uint256)\":{\"notice\":\"Fired when a seller cancels their listing.\"},\"ItemListed(address,address,uint256,uint256)\":{\"notice\":\"Fired when an NFT is listed for sale. Indexed on all three address/id fields         so The Graph can filter by seller, collection, or specific token efficiently.\"},\"ItemUpdated(address,address,uint256,uint256)\":{\"notice\":\"Fired when a seller updates their listing price. Separate from ItemListed         so off-chain indexers can distinguish a price change from a new listing.\"},\"ProceedsWithdrawn(address,uint256)\":{\"notice\":\"Fired when a seller withdraws accumulated proceeds.\"}},\"kind\":\"user\",\"methods\":{\"buyItem(address,uint256)\":{\"notice\":\"Purchase a listed NFT by sending at least the listing price in ETH.\"},\"cancelListing(address,uint256)\":{\"notice\":\"Cancel an active listing. Only the seller who created the listing may cancel.\"},\"getListing(address,uint256)\":{\"notice\":\"Retrieve the active listing for a specific token.\"},\"getProceeds(address)\":{\"notice\":\"Retrieve the accumulated proceeds available for a seller to withdraw.\"},\"listItem(address,uint256,uint256)\":{\"notice\":\"List an NFT for sale on the marketplace.\"},\"pause()\":{\"notice\":\"Pause the marketplace. Listing, buying, and updating are disabled.         Cancellations and withdrawals remain available so users can recover funds.\"},\"unpause()\":{\"notice\":\"Unpause the marketplace and resume normal operations.\"},\"updateListing(address,uint256,uint256)\":{\"notice\":\"Update the price of an existing listing.\"},\"withdrawProceeds()\":{\"notice\":\"Withdraw all accumulated sale proceeds to the caller's wallet.\"}},\"notice\":\"A non-custodial NFT marketplace. Sellers keep their NFT in their wallet         until a buyer purchases it. The marketplace only holds ETH proceeds \\u2014         never the NFTs themselves.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/nftMarketplace.sol\":\"NftMarketplace\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Context} from \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * The initial owner is set to the address provided by the deployer. This can\\n * later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    /**\\n     * @dev The caller account is not authorized to perform an operation.\\n     */\\n    error OwnableUnauthorizedAccount(address account);\\n\\n    /**\\n     * @dev The owner is not a valid owner account. (eg. `address(0)`)\\n     */\\n    error OwnableInvalidOwner(address owner);\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the address provided by the deployer as the initial owner.\\n     */\\n    constructor(address initialOwner) {\\n        if (initialOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(initialOwner);\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        if (owner() != _msgSender()) {\\n            revert OwnableUnauthorizedAccount(_msgSender());\\n        }\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        if (newOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC721/IERC721.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (token/ERC721/IERC721.sol)\\n\\npragma solidity >=0.6.2;\\n\\nimport {IERC165} from \\\"../../utils/introspection/IERC165.sol\\\";\\n\\n/**\\n * @dev Required interface of an ERC-721 compliant contract.\\n */\\ninterface IERC721 is IERC165 {\\n    /**\\n     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);\\n\\n    /**\\n     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.\\n     */\\n    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);\\n\\n    /**\\n     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.\\n     */\\n    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);\\n\\n    /**\\n     * @dev Returns the number of tokens in ``owner``'s account.\\n     */\\n    function balanceOf(address owner) external view returns (uint256 balance);\\n\\n    /**\\n     * @dev Returns the owner of the `tokenId` token.\\n     *\\n     * Requirements:\\n     *\\n     * - `tokenId` must exist.\\n     */\\n    function ownerOf(uint256 tokenId) external view returns (address owner);\\n\\n    /**\\n     * @dev Safely transfers `tokenId` token from `from` to `to`.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must exist and be owned by `from`.\\n     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\\n     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon\\n     *   a safe transfer.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function safeTransferFrom(address from, address to, uint256 tokenId, bytes calldata data) external;\\n\\n    /**\\n     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients\\n     * are aware of the ERC-721 protocol to prevent tokens from being forever locked.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must exist and be owned by `from`.\\n     * - If the caller is not `from`, it must have been allowed to move this token by either {approve} or\\n     *   {setApprovalForAll}.\\n     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon\\n     *   a safe transfer.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function safeTransferFrom(address from, address to, uint256 tokenId) external;\\n\\n    /**\\n     * @dev Transfers `tokenId` token from `from` to `to`.\\n     *\\n     * WARNING: Note that the caller is responsible to confirm that the recipient is capable of receiving ERC-721\\n     * or else they may be permanently lost. Usage of {safeTransferFrom} prevents loss, though the caller must\\n     * understand this adds an external call which potentially creates a reentrancy vulnerability.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must be owned by `from`.\\n     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 tokenId) external;\\n\\n    /**\\n     * @dev Gives permission to `to` to transfer `tokenId` token to another account.\\n     * The approval is cleared when the token is transferred.\\n     *\\n     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.\\n     *\\n     * Requirements:\\n     *\\n     * - The caller must own the token or be an approved operator.\\n     * - `tokenId` must exist.\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address to, uint256 tokenId) external;\\n\\n    /**\\n     * @dev Approve or remove `operator` as an operator for the caller.\\n     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.\\n     *\\n     * Requirements:\\n     *\\n     * - The `operator` cannot be the address zero.\\n     *\\n     * Emits an {ApprovalForAll} event.\\n     */\\n    function setApprovalForAll(address operator, bool approved) external;\\n\\n    /**\\n     * @dev Returns the account approved for `tokenId` token.\\n     *\\n     * Requirements:\\n     *\\n     * - `tokenId` must exist.\\n     */\\n    function getApproved(uint256 tokenId) external view returns (address operator);\\n\\n    /**\\n     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.\\n     *\\n     * See {setApprovalForAll}\\n     */\\n    function isApprovedForAll(address owner, address operator) external view returns (bool);\\n}\\n\",\"keccak256\":\"0xf78f05f3b8c9f75570e85300d7b4600d7f6f6a198449273f31d44c1641adb46f\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Pausable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.3.0) (utils/Pausable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Context} from \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which allows children to implement an emergency stop\\n * mechanism that can be triggered by an authorized account.\\n *\\n * This module is used through inheritance. It will make available the\\n * modifiers `whenNotPaused` and `whenPaused`, which can be applied to\\n * the functions of your contract. Note that they will not be pausable by\\n * simply including this module, only once the modifiers are put in place.\\n */\\nabstract contract Pausable is Context {\\n    bool private _paused;\\n\\n    /**\\n     * @dev Emitted when the pause is triggered by `account`.\\n     */\\n    event Paused(address account);\\n\\n    /**\\n     * @dev Emitted when the pause is lifted by `account`.\\n     */\\n    event Unpaused(address account);\\n\\n    /**\\n     * @dev The operation failed because the contract is paused.\\n     */\\n    error EnforcedPause();\\n\\n    /**\\n     * @dev The operation failed because the contract is not paused.\\n     */\\n    error ExpectedPause();\\n\\n    /**\\n     * @dev Modifier to make a function callable only when the contract is not paused.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must not be paused.\\n     */\\n    modifier whenNotPaused() {\\n        _requireNotPaused();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Modifier to make a function callable only when the contract is paused.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must be paused.\\n     */\\n    modifier whenPaused() {\\n        _requirePaused();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns true if the contract is paused, and false otherwise.\\n     */\\n    function paused() public view virtual returns (bool) {\\n        return _paused;\\n    }\\n\\n    /**\\n     * @dev Throws if the contract is paused.\\n     */\\n    function _requireNotPaused() internal view virtual {\\n        if (paused()) {\\n            revert EnforcedPause();\\n        }\\n    }\\n\\n    /**\\n     * @dev Throws if the contract is not paused.\\n     */\\n    function _requirePaused() internal view virtual {\\n        if (!paused()) {\\n            revert ExpectedPause();\\n        }\\n    }\\n\\n    /**\\n     * @dev Triggers stopped state.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must not be paused.\\n     */\\n    function _pause() internal virtual whenNotPaused {\\n        _paused = true;\\n        emit Paused(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Returns to normal state.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must be paused.\\n     */\\n    function _unpause() internal virtual whenPaused {\\n        _paused = false;\\n        emit Unpaused(_msgSender());\\n    }\\n}\\n\",\"keccak256\":\"0xdb484371dfbb848cb6f5d70464e9ac9b2900e4164ead76bbce4fef0b44bcc68f\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/ReentrancyGuard.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.5.0) (utils/ReentrancyGuard.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {StorageSlot} from \\\"./StorageSlot.sol\\\";\\n\\n/**\\n * @dev Contract module that helps prevent reentrant calls to a function.\\n *\\n * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier\\n * available, which can be applied to functions to make sure there are no nested\\n * (reentrant) calls to them.\\n *\\n * Note that because there is a single `nonReentrant` guard, functions marked as\\n * `nonReentrant` may not call one another. This can be worked around by making\\n * those functions `private`, and then adding `external` `nonReentrant` entry\\n * points to them.\\n *\\n * TIP: If EIP-1153 (transient storage) is available on the chain you're deploying at,\\n * consider using {ReentrancyGuardTransient} instead.\\n *\\n * TIP: If you would like to learn more about reentrancy and alternative ways\\n * to protect against it, check out our blog post\\n * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].\\n *\\n * IMPORTANT: Deprecated. This storage-based reentrancy guard will be removed and replaced\\n * by the {ReentrancyGuardTransient} variant in v6.0.\\n *\\n * @custom:stateless\\n */\\nabstract contract ReentrancyGuard {\\n    using StorageSlot for bytes32;\\n\\n    // keccak256(abi.encode(uint256(keccak256(\\\"openzeppelin.storage.ReentrancyGuard\\\")) - 1)) & ~bytes32(uint256(0xff))\\n    bytes32 private constant REENTRANCY_GUARD_STORAGE =\\n        0x9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f00;\\n\\n    // Booleans are more expensive than uint256 or any type that takes up a full\\n    // word because each write operation emits an extra SLOAD to first read the\\n    // slot's contents, replace the bits taken up by the boolean, and then write\\n    // back. This is the compiler's defense against contract upgrades and\\n    // pointer aliasing, and it cannot be disabled.\\n\\n    // The values being non-zero value makes deployment a bit more expensive,\\n    // but in exchange the refund on every call to nonReentrant will be lower in\\n    // amount. Since refunds are capped to a percentage of the total\\n    // transaction's gas, it is best to keep them low in cases like this one, to\\n    // increase the likelihood of the full refund coming into effect.\\n    uint256 private constant NOT_ENTERED = 1;\\n    uint256 private constant ENTERED = 2;\\n\\n    /**\\n     * @dev Unauthorized reentrant call.\\n     */\\n    error ReentrancyGuardReentrantCall();\\n\\n    constructor() {\\n        _reentrancyGuardStorageSlot().getUint256Slot().value = NOT_ENTERED;\\n    }\\n\\n    /**\\n     * @dev Prevents a contract from calling itself, directly or indirectly.\\n     * Calling a `nonReentrant` function from another `nonReentrant`\\n     * function is not supported. It is possible to prevent this from happening\\n     * by making the `nonReentrant` function external, and making it call a\\n     * `private` function that does the actual work.\\n     */\\n    modifier nonReentrant() {\\n        _nonReentrantBefore();\\n        _;\\n        _nonReentrantAfter();\\n    }\\n\\n    /**\\n     * @dev A `view` only version of {nonReentrant}. Use to block view functions\\n     * from being called, preventing reading from inconsistent contract state.\\n     *\\n     * CAUTION: This is a \\\"view\\\" modifier and does not change the reentrancy\\n     * status. Use it only on view functions. For payable or non-payable functions,\\n     * use the standard {nonReentrant} modifier instead.\\n     */\\n    modifier nonReentrantView() {\\n        _nonReentrantBeforeView();\\n        _;\\n    }\\n\\n    function _nonReentrantBeforeView() private view {\\n        if (_reentrancyGuardEntered()) {\\n            revert ReentrancyGuardReentrantCall();\\n        }\\n    }\\n\\n    function _nonReentrantBefore() private {\\n        // On the first call to nonReentrant, _status will be NOT_ENTERED\\n        _nonReentrantBeforeView();\\n\\n        // Any calls to nonReentrant after this point will fail\\n        _reentrancyGuardStorageSlot().getUint256Slot().value = ENTERED;\\n    }\\n\\n    function _nonReentrantAfter() private {\\n        // By storing the original value once again, a refund is triggered (see\\n        // https://eips.ethereum.org/EIPS/eip-2200)\\n        _reentrancyGuardStorageSlot().getUint256Slot().value = NOT_ENTERED;\\n    }\\n\\n    /**\\n     * @dev Returns true if the reentrancy guard is currently set to \\\"entered\\\", which indicates there is a\\n     * `nonReentrant` function in the call stack.\\n     */\\n    function _reentrancyGuardEntered() internal view returns (bool) {\\n        return _reentrancyGuardStorageSlot().getUint256Slot().value == ENTERED;\\n    }\\n\\n    function _reentrancyGuardStorageSlot() internal pure virtual returns (bytes32) {\\n        return REENTRANCY_GUARD_STORAGE;\\n    }\\n}\\n\",\"keccak256\":\"0xa516cbf1c7d15d3517c2d668601ce016c54395bf5171918a14e2686977465f53\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/StorageSlot.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.1.0) (utils/StorageSlot.sol)\\n// This file was procedurally generated from scripts/generate/templates/StorageSlot.js.\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Library for reading and writing primitive types to specific storage slots.\\n *\\n * Storage slots are often used to avoid storage conflict when dealing with upgradeable contracts.\\n * This library helps with reading and writing to such slots without the need for inline assembly.\\n *\\n * The functions in this library return Slot structs that contain a `value` member that can be used to read or write.\\n *\\n * Example usage to set ERC-1967 implementation slot:\\n * ```solidity\\n * contract ERC1967 {\\n *     // Define the slot. Alternatively, use the SlotDerivation library to derive the slot.\\n *     bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;\\n *\\n *     function _getImplementation() internal view returns (address) {\\n *         return StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value;\\n *     }\\n *\\n *     function _setImplementation(address newImplementation) internal {\\n *         require(newImplementation.code.length > 0);\\n *         StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value = newImplementation;\\n *     }\\n * }\\n * ```\\n *\\n * TIP: Consider using this library along with {SlotDerivation}.\\n */\\nlibrary StorageSlot {\\n    struct AddressSlot {\\n        address value;\\n    }\\n\\n    struct BooleanSlot {\\n        bool value;\\n    }\\n\\n    struct Bytes32Slot {\\n        bytes32 value;\\n    }\\n\\n    struct Uint256Slot {\\n        uint256 value;\\n    }\\n\\n    struct Int256Slot {\\n        int256 value;\\n    }\\n\\n    struct StringSlot {\\n        string value;\\n    }\\n\\n    struct BytesSlot {\\n        bytes value;\\n    }\\n\\n    /**\\n     * @dev Returns an `AddressSlot` with member `value` located at `slot`.\\n     */\\n    function getAddressSlot(bytes32 slot) internal pure returns (AddressSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `BooleanSlot` with member `value` located at `slot`.\\n     */\\n    function getBooleanSlot(bytes32 slot) internal pure returns (BooleanSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `Bytes32Slot` with member `value` located at `slot`.\\n     */\\n    function getBytes32Slot(bytes32 slot) internal pure returns (Bytes32Slot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `Uint256Slot` with member `value` located at `slot`.\\n     */\\n    function getUint256Slot(bytes32 slot) internal pure returns (Uint256Slot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `Int256Slot` with member `value` located at `slot`.\\n     */\\n    function getInt256Slot(bytes32 slot) internal pure returns (Int256Slot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `StringSlot` with member `value` located at `slot`.\\n     */\\n    function getStringSlot(bytes32 slot) internal pure returns (StringSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns an `StringSlot` representation of the string storage pointer `store`.\\n     */\\n    function getStringSlot(string storage store) internal pure returns (StringSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := store.slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `BytesSlot` with member `value` located at `slot`.\\n     */\\n    function getBytesSlot(bytes32 slot) internal pure returns (BytesSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns an `BytesSlot` representation of the bytes storage pointer `store`.\\n     */\\n    function getBytesSlot(bytes storage store) internal pure returns (BytesSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := store.slot\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xcf74f855663ce2ae00ed8352666b7935f6cddea2932fdf2c3ecd30a9b1cd0e97\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (utils/introspection/IERC165.sol)\\n\\npragma solidity >=0.4.16;\\n\\n/**\\n * @dev Interface of the ERC-165 standard, as defined in the\\n * https://eips.ethereum.org/EIPS/eip-165[ERC].\\n *\\n * Implementers can declare support of contract interfaces, which can then be\\n * queried by others ({ERC165Checker}).\\n *\\n * For an implementation, see {ERC165}.\\n */\\ninterface IERC165 {\\n    /**\\n     * @dev Returns true if this contract implements the interface defined by\\n     * `interfaceId`. See the corresponding\\n     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[ERC section]\\n     * to learn more about how these ids are created.\\n     *\\n     * This function call must use less than 30 000 gas.\\n     */\\n    function supportsInterface(bytes4 interfaceId) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x8891738ffe910f0cf2da09566928589bf5d63f4524dd734fd9cedbac3274dd5c\",\"license\":\"MIT\"},\"contracts/nftMarketplace.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.24;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC721/IERC721.sol\\\";\\nimport \\\"@openzeppelin/contracts/utils/ReentrancyGuard.sol\\\";\\nimport \\\"@openzeppelin/contracts/utils/Pausable.sol\\\";\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\n\\n/**\\n * @title  NftMarketplace\\n * @author Babbage Lab (babbagelab.tech)\\n * @notice A non-custodial NFT marketplace. Sellers keep their NFT in their wallet\\n *         until a buyer purchases it. The marketplace only holds ETH proceeds \\u2014\\n *         never the NFTs themselves.\\n * @dev    Security model:\\n *           - ReentrancyGuard on every state-changing function\\n *           - Pausable emergency stop controlled by owner\\n *           - Checks-Effects-Interactions pattern throughout\\n *           - isSeller check on cancel/update prevents griefing by third parties\\n */\\ncontract NftMarketplace is ReentrancyGuard, Pausable, Ownable {\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    //  Custom Errors\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    error NftMarketplace__PriceMustBeAboveZero();\\n    error NftMarketplace__NotApprovedForMarketplace();\\n    error NftMarketplace__AlreadyListed(address nftAddress, uint256 tokenId);\\n    error NftMarketplace__NotOwner();\\n    error NftMarketplace__NotSeller();\\n    error NftMarketplace__NotListed(address nftAddress, uint256 tokenId);\\n    error NftMarketplace__PriceNotMet(address nftAddress, uint256 tokenId, uint256 price);\\n    error NftMarketplace__NoProceeds();\\n    error NftMarketplace__TransferFailed();\\n    error NftMarketplace__ZeroAddress();\\n    error NftMarketplace__CannotBuyOwnListing();\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    //  Types\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    struct Listing {\\n        uint256 price;\\n        address seller;\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    //  Events\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /// @notice Fired when an NFT is listed for sale. Indexed on all three address/id fields\\n    ///         so The Graph can filter by seller, collection, or specific token efficiently.\\n    event ItemListed(\\n        address indexed seller,\\n        address indexed nftAddress,\\n        uint256 indexed tokenId,\\n        uint256 price\\n    );\\n\\n    /// @notice Fired when an NFT is purchased.\\n    event ItemBought(\\n        address indexed buyer,\\n        address indexed nftAddress,\\n        uint256 indexed tokenId,\\n        uint256 price\\n    );\\n\\n    /// @notice Fired when a seller cancels their listing.\\n    event ItemCancelled(\\n        address indexed seller,\\n        address indexed nftAddress,\\n        uint256 indexed tokenId\\n    );\\n\\n    /// @notice Fired when a seller updates their listing price. Separate from ItemListed\\n    ///         so off-chain indexers can distinguish a price change from a new listing.\\n    event ItemUpdated(\\n        address indexed seller,\\n        address indexed nftAddress,\\n        uint256 indexed tokenId,\\n        uint256 newPrice\\n    );\\n\\n    /// @notice Fired when a seller withdraws accumulated proceeds.\\n    event ProceedsWithdrawn(\\n        address indexed seller,\\n        uint256 amount\\n    );\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    //  State\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /// @dev NFT contract address \\u2192 Token ID \\u2192 Listing details\\n    mapping(address => mapping(uint256 => Listing)) private s_listings;\\n\\n    /// @dev Seller address \\u2192 Accumulated proceeds in wei (pull-over-push pattern)\\n    mapping(address => uint256) private s_proceeds;\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    //  Modifiers\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /// @dev Reverts if the token already has an active listing (price > 0).\\n    modifier notListed(address nftAddress, uint256 tokenId) {\\n        if (s_listings[nftAddress][tokenId].price > 0) {\\n            revert NftMarketplace__AlreadyListed(nftAddress, tokenId);\\n        }\\n        _;\\n    }\\n\\n    /// @dev Reverts if the token does not have an active listing.\\n    modifier isListed(address nftAddress, uint256 tokenId) {\\n        if (s_listings[nftAddress][tokenId].price == 0) {\\n            revert NftMarketplace__NotListed(nftAddress, tokenId);\\n        }\\n        _;\\n    }\\n\\n    /// @dev Reverts if spender is not the current ERC-721 owner of the token.\\n    ///      Zero-address check runs here so it fires before the external ownerOf call,\\n    ///      which would otherwise revert with no reason on address(0).\\n    ///      Used only at listing time \\u2014 subsequent operations check the stored seller.\\n    modifier isNftOwner(\\n        address nftAddress,\\n        uint256 tokenId,\\n        address spender\\n    ) {\\n        if (nftAddress == address(0)) revert NftMarketplace__ZeroAddress();\\n        if (IERC721(nftAddress).ownerOf(tokenId) != spender) {\\n            revert NftMarketplace__NotOwner();\\n        }\\n        _;\\n    }\\n\\n    /// @dev Reverts if caller is not the address that originally created the listing.\\n    ///      Cheaper than re-querying ownerOf and correctly handles the edge case where\\n    ///      an NFT is transferred after listing (original seller can still cancel).\\n    modifier isSeller(address nftAddress, uint256 tokenId) {\\n        if (s_listings[nftAddress][tokenId].seller != msg.sender) {\\n            revert NftMarketplace__NotSeller();\\n        }\\n        _;\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    //  Constructor\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    constructor() Ownable(msg.sender) {}\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    //  Core Marketplace Functions\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /**\\n     * @notice List an NFT for sale on the marketplace.\\n     * @dev    The NFT stays in the seller's wallet. The marketplace must be approved\\n     *         to transfer it before this call (via ERC-721 approve or setApprovalForAll).\\n     *         Reverts when the marketplace is paused.\\n     * @param  nftAddress  The ERC-721 contract address of the token to list.\\n     * @param  tokenId     The token ID to list.\\n     * @param  price       The sale price in wei. Must be greater than zero.\\n     */\\n    function listItem(\\n        address nftAddress,\\n        uint256 tokenId,\\n        uint256 price\\n    )\\n        external\\n        whenNotPaused\\n        nonReentrant\\n        notListed(nftAddress, tokenId)\\n        isNftOwner(nftAddress, tokenId, msg.sender)\\n    {\\n        if (price == 0) revert NftMarketplace__PriceMustBeAboveZero();\\n        if (IERC721(nftAddress).getApproved(tokenId) != address(this)) {\\n            revert NftMarketplace__NotApprovedForMarketplace();\\n        }\\n\\n        s_listings[nftAddress][tokenId] = Listing(price, msg.sender);\\n        emit ItemListed(msg.sender, nftAddress, tokenId, price);\\n    }\\n\\n    /**\\n     * @notice Purchase a listed NFT by sending at least the listing price in ETH.\\n     * @dev    Follows Checks-Effects-Interactions:\\n     *           1. Checks  \\u2014 price met, not own listing\\n     *           2. Effects \\u2014 credit seller proceeds, delete listing\\n     *           3. Interact \\u2014 safeTransferFrom NFT to buyer\\n     *         Reverts when the marketplace is paused.\\n     * @param  nftAddress  The ERC-721 contract address of the token to buy.\\n     * @param  tokenId     The token ID to buy.\\n     */\\n    function buyItem(\\n        address nftAddress,\\n        uint256 tokenId\\n    )\\n        external\\n        payable\\n        whenNotPaused\\n        nonReentrant\\n        isListed(nftAddress, tokenId)\\n    {\\n        Listing memory listedItem = s_listings[nftAddress][tokenId];\\n\\n        if (msg.value < listedItem.price) {\\n            revert NftMarketplace__PriceNotMet(nftAddress, tokenId, listedItem.price);\\n        }\\n        if (msg.sender == listedItem.seller) {\\n            revert NftMarketplace__CannotBuyOwnListing();\\n        }\\n\\n        // Effects before interactions\\n        s_proceeds[listedItem.seller] += listedItem.price;\\n        delete s_listings[nftAddress][tokenId];\\n\\n        // Interaction: transfer NFT. safeTransferFrom will call onERC721Received on contracts.\\n        IERC721(nftAddress).safeTransferFrom(listedItem.seller, msg.sender, tokenId);\\n        emit ItemBought(msg.sender, nftAddress, tokenId, listedItem.price);\\n    }\\n\\n    /**\\n     * @notice Cancel an active listing. Only the seller who created the listing may cancel.\\n     * @dev    Checks the stored seller address, not the current NFT owner. This correctly\\n     *         allows cancellation even if the underlying NFT was transferred after listing,\\n     *         and prevents a new token holder from cancelling someone else's listing.\\n     * @param  nftAddress  The ERC-721 contract address of the listed token.\\n     * @param  tokenId     The token ID of the listing to cancel.\\n     */\\n    function cancelListing(\\n        address nftAddress,\\n        uint256 tokenId\\n    )\\n        external\\n        nonReentrant\\n        isListed(nftAddress, tokenId)\\n        isSeller(nftAddress, tokenId)\\n    {\\n        delete s_listings[nftAddress][tokenId];\\n        emit ItemCancelled(msg.sender, nftAddress, tokenId);\\n    }\\n\\n    /**\\n     * @notice Update the price of an existing listing.\\n     * @dev    Emits ItemUpdated (not ItemListed) so off-chain indexers can distinguish\\n     *         a price change from a brand-new listing. Only the original seller may update.\\n     *         Reverts when the marketplace is paused.\\n     * @param  nftAddress  The ERC-721 contract address of the listed token.\\n     * @param  tokenId     The token ID of the listing to update.\\n     * @param  newPrice    The new sale price in wei. Must be greater than zero.\\n     */\\n    function updateListing(\\n        address nftAddress,\\n        uint256 tokenId,\\n        uint256 newPrice\\n    )\\n        external\\n        whenNotPaused\\n        nonReentrant\\n        isListed(nftAddress, tokenId)\\n        isSeller(nftAddress, tokenId)\\n    {\\n        if (newPrice == 0) revert NftMarketplace__PriceMustBeAboveZero();\\n        s_listings[nftAddress][tokenId].price = newPrice;\\n        emit ItemUpdated(msg.sender, nftAddress, tokenId, newPrice);\\n    }\\n\\n    /**\\n     * @notice Withdraw all accumulated sale proceeds to the caller's wallet.\\n     * @dev    Pull-over-push pattern: sellers accumulate proceeds in a mapping and\\n     *         withdraw on demand. This avoids push failures if a seller is a contract.\\n     *         Balance is zeroed before the transfer (CEI) to prevent reentrancy,\\n     *         and nonReentrant provides a second layer of defence.\\n     */\\n    function withdrawProceeds() external nonReentrant {\\n        uint256 proceeds = s_proceeds[msg.sender];\\n        if (proceeds == 0) revert NftMarketplace__NoProceeds();\\n\\n        // Effect before interaction\\n        s_proceeds[msg.sender] = 0;\\n\\n        (bool success, ) = payable(msg.sender).call{value: proceeds}(\\\"\\\");\\n        if (!success) revert NftMarketplace__TransferFailed();\\n\\n        emit ProceedsWithdrawn(msg.sender, proceeds);\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    //  Admin \\u2014 Emergency Controls\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /**\\n     * @notice Pause the marketplace. Listing, buying, and updating are disabled.\\n     *         Cancellations and withdrawals remain available so users can recover funds.\\n     * @dev    Only callable by the contract owner. Use in the event of a critical bug.\\n     */\\n    function pause() external onlyOwner {\\n        _pause();\\n    }\\n\\n    /**\\n     * @notice Unpause the marketplace and resume normal operations.\\n     * @dev    Only callable by the contract owner.\\n     */\\n    function unpause() external onlyOwner {\\n        _unpause();\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    //  View Functions\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /**\\n     * @notice Retrieve the active listing for a specific token.\\n     * @param  nftAddress  The ERC-721 contract address.\\n     * @param  tokenId     The token ID.\\n     * @return             A Listing struct with price and seller. Price is 0 if not listed.\\n     */\\n    function getListing(address nftAddress, uint256 tokenId)\\n        external\\n        view\\n        returns (Listing memory)\\n    {\\n        return s_listings[nftAddress][tokenId];\\n    }\\n\\n    /**\\n     * @notice Retrieve the accumulated proceeds available for a seller to withdraw.\\n     * @param  seller  The seller's wallet address.\\n     * @return         Amount in wei available to withdraw.\\n     */\\n    function getProceeds(address seller) external view returns (uint256) {\\n        return s_proceeds[seller];\\n    }\\n}\\n\",\"keccak256\":\"0x25fb0788b5c486f73b460e7114d2c86d909b9d645146038651a97e3ba8b0fb54\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x6080604052348015600e575f5ffd5b5060017f9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f00553380605757604051631e4fbdf760e01b81525f600482015260240160405180910390fd5b605e816063565b5060bb565b5f80546001600160a01b03838116610100818102610100600160a81b0319851617855560405193049190911692909183917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a35050565b610e74806100c85f395ff3fe6080604052600436106100bf575f3560e01c806389bfd38f1161007c5780639f37092a116100575780639f37092a14610213578063b2ddee0614610226578063f2fde38b14610245578063f772adf114610264575f5ffd5b806389bfd38f146101ac5780638da5cb5b146101cb5780639038e693146101ff575f5ffd5b806330cfeda9146100c35780633f4ba83a1461010a5780635c975abb14610120578063715018a6146101415780638456cb591461015557806388700d1c14610169575b5f5ffd5b3480156100ce575f5ffd5b506100f76100dd366004610d66565b6001600160a01b03165f9081526002602052604090205490565b6040519081526020015b60405180910390f35b348015610115575f5ffd5b5061011e610283565b005b34801561012b575f5ffd5b505f5460ff166040519015158152602001610101565b34801561014c575f5ffd5b5061011e610295565b348015610160575f5ffd5b5061011e6102a6565b348015610174575f5ffd5b50610188610183366004610d88565b6102b6565b60408051825181526020928301516001600160a01b03169281019290925201610101565b3480156101b7575f5ffd5b5061011e6101c6366004610db2565b610305565b3480156101d6575f5ffd5b505f5461010090046001600160a01b03166040516001600160a01b039091168152602001610101565b34801561020a575f5ffd5b5061011e6105d3565b61011e610221366004610d88565b6106cd565b348015610231575f5ffd5b5061011e610240366004610d88565b610903565b348015610250575f5ffd5b5061011e61025f366004610d66565b610a28565b34801561026f575f5ffd5b5061011e61027e366004610db2565b610a65565b61028b610bac565b610293610bde565b565b61029d610bac565b6102935f610c2f565b6102ae610bac565b610293610c87565b6040805180820182525f80825260209182018190526001600160a01b03858116825260018084528483208684528452918490208451808601909552805485529091015416908201525b92915050565b61030d610cc3565b610315610ce6565b6001600160a01b0383165f90815260016020908152604080832085845290915290205483908390156103715760405163c2f0d70960e01b81526001600160a01b0383166004820152602481018290526044015b60405180910390fd5b8484336001600160a01b03831661039b57604051637ce39a6160e01b815260040160405180910390fd5b6040516331a9108f60e11b8152600481018390526001600160a01b038083169190851690636352211e90602401602060405180830381865afa1580156103e3573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104079190610de4565b6001600160a01b03161461042e576040516304a4a9db60e51b815260040160405180910390fd5b855f0361044e5760405163096d7ecf60e01b815260040160405180910390fd5b60405163020604bf60e21b81526004810188905230906001600160a01b038a169063081812fc90602401602060405180830381865afa158015610493573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104b79190610de4565b6001600160a01b0316146104de576040516313e7d28d60e01b815260040160405180910390fd5b6040518060400160405280878152602001336001600160a01b031681525060015f8a6001600160a01b03166001600160a01b031681526020019081526020015f205f8981526020019081526020015f205f820151815f01556020820151816001015f6101000a8154816001600160a01b0302191690836001600160a01b0316021790555090505086886001600160a01b0316336001600160a01b03167fd547e933094f12a9159076970143ebe73234e64480317844b0dcb36117116de4896040516105ab91815260200190565b60405180910390a450505050506105ce60015f516020610e1f5f395f51905f5255565b505050565b6105db610ce6565b335f908152600260205260408120549081900361060b576040516333453e2160e11b815260040160405180910390fd5b335f818152600260205260408082208290555190919083908381818185875af1925050503d805f8114610659576040519150601f19603f3d011682016040523d82523d5f602084013e61065e565b606091505b50509050806106805760405163502c425d60e11b815260040160405180910390fd5b60405182815233907f0f2fb75cc1977a496e94837f859e957f68e26e70dc1b75d9945ee92ae57969ba9060200160405180910390a2505061029360015f516020610e1f5f395f51905f5255565b6106d5610cc3565b6106dd610ce6565b6001600160a01b0382165f9081526001602090815260408083208484529091528120548391839190036107355760405163369a879160e11b81526001600160a01b038316600482015260248101829052604401610368565b6001600160a01b038085165f9081526001602081815260408084208885528252928390208351808501909452805480855292015490931692820192909252903410156107b057805160405163817ce9f160e01b81526001600160a01b0387166004820152602481018690526044810191909152606401610368565b60208101516001600160a01b031633036107dd576040516308de5d4f60e21b815260040160405180910390fd5b80516020808301516001600160a01b03165f908152600290915260408120805490919061080b908490610dff565b90915550506001600160a01b038581165f8181526001602081815260408084208a855282528084209384559290910180546001600160a01b03191690558401519051632142170760e11b81529216600483015233602483015260448201869052906342842e0e906064015f604051808303815f87803b15801561088c575f5ffd5b505af115801561089e573d5f5f3e3d5ffd5b505082516040519081528692506001600160a01b038816915033907f263223b1dd81e51054a4e6f791d45a4a1ddb4aadcd93a2dfd892615c3fdac1879060200160405180910390a45050506108ff60015f516020610e1f5f395f51905f5255565b5050565b61090b610ce6565b6001600160a01b0382165f9081526001602090815260408083208484529091528120548391839190036109635760405163369a879160e11b81526001600160a01b038316600482015260248101829052604401610368565b6001600160a01b038085165f9081526001602081815260408084208885529091529091200154859185911633146109ad57604051631a96651b60e01b815260040160405180910390fd5b6001600160a01b0386165f8181526001602081815260408084208a855290915280832083815590910180546001600160a01b03191690555187929133917f6e08c1d889d309942730e4afa7963d0c5294a34a479f2c8cf39a953f287dcdee9190a4505050506108ff60015f516020610e1f5f395f51905f5255565b610a30610bac565b6001600160a01b038116610a5957604051631e4fbdf760e01b81525f6004820152602401610368565b610a6281610c2f565b50565b610a6d610cc3565b610a75610ce6565b6001600160a01b0383165f908152600160209081526040808320858452909152812054849184919003610acd5760405163369a879160e11b81526001600160a01b038316600482015260248101829052604401610368565b6001600160a01b038086165f908152600160208181526040808420898552909152909120015486918691163314610b1757604051631a96651b60e01b815260040160405180910390fd5b845f03610b375760405163096d7ecf60e01b815260040160405180910390fd5b6001600160a01b0387165f8181526001602090815260408083208a8452825291829020889055905187815288929133917f3c33e65e8698294810b631d476d60b44425303828da0b1f8b635231bfda12be2910160405180910390a4505050506105ce60015f516020610e1f5f395f51905f5255565b5f546001600160a01b036101009091041633146102935760405163118cdaa760e01b8152336004820152602401610368565b610be6610d01565b5f805460ff191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b5f80546001600160a01b03838116610100818102610100600160a81b0319851617855560405193049190911692909183917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a35050565b610c8f610cc3565b5f805460ff191660011790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258610c123390565b5f5460ff16156102935760405163d93c066560e01b815260040160405180910390fd5b610cee610d23565b60025f516020610e1f5f395f51905f5255565b5f5460ff1661029357604051638dfc202b60e01b815260040160405180910390fd5b5f516020610e1f5f395f51905f525460020361029357604051633ee5aeb560e01b815260040160405180910390fd5b6001600160a01b0381168114610a62575f5ffd5b5f60208284031215610d76575f5ffd5b8135610d8181610d52565b9392505050565b5f5f60408385031215610d99575f5ffd5b8235610da481610d52565b946020939093013593505050565b5f5f5f60608486031215610dc4575f5ffd5b8335610dcf81610d52565b95602085013595506040909401359392505050565b5f60208284031215610df4575f5ffd5b8151610d8181610d52565b808201808211156102ff57634e487b7160e01b5f52601160045260245ffdfe9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f00a2646970667358221220751e859839bba3c166cd9b7d90655c0e5cc8f0555a1ff90c424205a29664945f64736f6c634300081c0033",
+  "deployedBytecode": "0x6080604052600436106100bf575f3560e01c806389bfd38f1161007c5780639f37092a116100575780639f37092a14610213578063b2ddee0614610226578063f2fde38b14610245578063f772adf114610264575f5ffd5b806389bfd38f146101ac5780638da5cb5b146101cb5780639038e693146101ff575f5ffd5b806330cfeda9146100c35780633f4ba83a1461010a5780635c975abb14610120578063715018a6146101415780638456cb591461015557806388700d1c14610169575b5f5ffd5b3480156100ce575f5ffd5b506100f76100dd366004610d66565b6001600160a01b03165f9081526002602052604090205490565b6040519081526020015b60405180910390f35b348015610115575f5ffd5b5061011e610283565b005b34801561012b575f5ffd5b505f5460ff166040519015158152602001610101565b34801561014c575f5ffd5b5061011e610295565b348015610160575f5ffd5b5061011e6102a6565b348015610174575f5ffd5b50610188610183366004610d88565b6102b6565b60408051825181526020928301516001600160a01b03169281019290925201610101565b3480156101b7575f5ffd5b5061011e6101c6366004610db2565b610305565b3480156101d6575f5ffd5b505f5461010090046001600160a01b03166040516001600160a01b039091168152602001610101565b34801561020a575f5ffd5b5061011e6105d3565b61011e610221366004610d88565b6106cd565b348015610231575f5ffd5b5061011e610240366004610d88565b610903565b348015610250575f5ffd5b5061011e61025f366004610d66565b610a28565b34801561026f575f5ffd5b5061011e61027e366004610db2565b610a65565b61028b610bac565b610293610bde565b565b61029d610bac565b6102935f610c2f565b6102ae610bac565b610293610c87565b6040805180820182525f80825260209182018190526001600160a01b03858116825260018084528483208684528452918490208451808601909552805485529091015416908201525b92915050565b61030d610cc3565b610315610ce6565b6001600160a01b0383165f90815260016020908152604080832085845290915290205483908390156103715760405163c2f0d70960e01b81526001600160a01b0383166004820152602481018290526044015b60405180910390fd5b8484336001600160a01b03831661039b57604051637ce39a6160e01b815260040160405180910390fd5b6040516331a9108f60e11b8152600481018390526001600160a01b038083169190851690636352211e90602401602060405180830381865afa1580156103e3573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104079190610de4565b6001600160a01b03161461042e576040516304a4a9db60e51b815260040160405180910390fd5b855f0361044e5760405163096d7ecf60e01b815260040160405180910390fd5b60405163020604bf60e21b81526004810188905230906001600160a01b038a169063081812fc90602401602060405180830381865afa158015610493573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104b79190610de4565b6001600160a01b0316146104de576040516313e7d28d60e01b815260040160405180910390fd5b6040518060400160405280878152602001336001600160a01b031681525060015f8a6001600160a01b03166001600160a01b031681526020019081526020015f205f8981526020019081526020015f205f820151815f01556020820151816001015f6101000a8154816001600160a01b0302191690836001600160a01b0316021790555090505086886001600160a01b0316336001600160a01b03167fd547e933094f12a9159076970143ebe73234e64480317844b0dcb36117116de4896040516105ab91815260200190565b60405180910390a450505050506105ce60015f516020610e1f5f395f51905f5255565b505050565b6105db610ce6565b335f908152600260205260408120549081900361060b576040516333453e2160e11b815260040160405180910390fd5b335f818152600260205260408082208290555190919083908381818185875af1925050503d805f8114610659576040519150601f19603f3d011682016040523d82523d5f602084013e61065e565b606091505b50509050806106805760405163502c425d60e11b815260040160405180910390fd5b60405182815233907f0f2fb75cc1977a496e94837f859e957f68e26e70dc1b75d9945ee92ae57969ba9060200160405180910390a2505061029360015f516020610e1f5f395f51905f5255565b6106d5610cc3565b6106dd610ce6565b6001600160a01b0382165f9081526001602090815260408083208484529091528120548391839190036107355760405163369a879160e11b81526001600160a01b038316600482015260248101829052604401610368565b6001600160a01b038085165f9081526001602081815260408084208885528252928390208351808501909452805480855292015490931692820192909252903410156107b057805160405163817ce9f160e01b81526001600160a01b0387166004820152602481018690526044810191909152606401610368565b60208101516001600160a01b031633036107dd576040516308de5d4f60e21b815260040160405180910390fd5b80516020808301516001600160a01b03165f908152600290915260408120805490919061080b908490610dff565b90915550506001600160a01b038581165f8181526001602081815260408084208a855282528084209384559290910180546001600160a01b03191690558401519051632142170760e11b81529216600483015233602483015260448201869052906342842e0e906064015f604051808303815f87803b15801561088c575f5ffd5b505af115801561089e573d5f5f3e3d5ffd5b505082516040519081528692506001600160a01b038816915033907f263223b1dd81e51054a4e6f791d45a4a1ddb4aadcd93a2dfd892615c3fdac1879060200160405180910390a45050506108ff60015f516020610e1f5f395f51905f5255565b5050565b61090b610ce6565b6001600160a01b0382165f9081526001602090815260408083208484529091528120548391839190036109635760405163369a879160e11b81526001600160a01b038316600482015260248101829052604401610368565b6001600160a01b038085165f9081526001602081815260408084208885529091529091200154859185911633146109ad57604051631a96651b60e01b815260040160405180910390fd5b6001600160a01b0386165f8181526001602081815260408084208a855290915280832083815590910180546001600160a01b03191690555187929133917f6e08c1d889d309942730e4afa7963d0c5294a34a479f2c8cf39a953f287dcdee9190a4505050506108ff60015f516020610e1f5f395f51905f5255565b610a30610bac565b6001600160a01b038116610a5957604051631e4fbdf760e01b81525f6004820152602401610368565b610a6281610c2f565b50565b610a6d610cc3565b610a75610ce6565b6001600160a01b0383165f908152600160209081526040808320858452909152812054849184919003610acd5760405163369a879160e11b81526001600160a01b038316600482015260248101829052604401610368565b6001600160a01b038086165f908152600160208181526040808420898552909152909120015486918691163314610b1757604051631a96651b60e01b815260040160405180910390fd5b845f03610b375760405163096d7ecf60e01b815260040160405180910390fd5b6001600160a01b0387165f8181526001602090815260408083208a8452825291829020889055905187815288929133917f3c33e65e8698294810b631d476d60b44425303828da0b1f8b635231bfda12be2910160405180910390a4505050506105ce60015f516020610e1f5f395f51905f5255565b5f546001600160a01b036101009091041633146102935760405163118cdaa760e01b8152336004820152602401610368565b610be6610d01565b5f805460ff191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b5f80546001600160a01b03838116610100818102610100600160a81b0319851617855560405193049190911692909183917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a35050565b610c8f610cc3565b5f805460ff191660011790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258610c123390565b5f5460ff16156102935760405163d93c066560e01b815260040160405180910390fd5b610cee610d23565b60025f516020610e1f5f395f51905f5255565b5f5460ff1661029357604051638dfc202b60e01b815260040160405180910390fd5b5f516020610e1f5f395f51905f525460020361029357604051633ee5aeb560e01b815260040160405180910390fd5b6001600160a01b0381168114610a62575f5ffd5b5f60208284031215610d76575f5ffd5b8135610d8181610d52565b9392505050565b5f5f60408385031215610d99575f5ffd5b8235610da481610d52565b946020939093013593505050565b5f5f5f60608486031215610dc4575f5ffd5b8335610dcf81610d52565b95602085013595506040909401359392505050565b5f60208284031215610df4575f5ffd5b8151610d8181610d52565b808201808211156102ff57634e487b7160e01b5f52601160045260245ffdfe9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f00a2646970667358221220751e859839bba3c166cd9b7d90655c0e5cc8f0555a1ff90c424205a29664945f64736f6c634300081c0033",
+  "devdoc": {
+    "author": "Babbage Lab (babbagelab.tech)",
+    "details": "Security model:           - ReentrancyGuard on every state-changing function           - Pausable emergency stop controlled by owner           - Checks-Effects-Interactions pattern throughout           - isSeller check on cancel/update prevents griefing by third parties",
+    "errors": {
+      "EnforcedPause()": [
+        {
+          "details": "The operation failed because the contract is paused."
+        }
+      ],
+      "ExpectedPause()": [
+        {
+          "details": "The operation failed because the contract is not paused."
+        }
+      ],
+      "OwnableInvalidOwner(address)": [
+        {
+          "details": "The owner is not a valid owner account. (eg. `address(0)`)"
+        }
+      ],
+      "OwnableUnauthorizedAccount(address)": [
+        {
+          "details": "The caller account is not authorized to perform an operation."
+        }
+      ],
+      "ReentrancyGuardReentrantCall()": [
+        {
+          "details": "Unauthorized reentrant call."
+        }
+      ]
+    },
+    "events": {
+      "Paused(address)": {
+        "details": "Emitted when the pause is triggered by `account`."
+      },
+      "Unpaused(address)": {
+        "details": "Emitted when the pause is lifted by `account`."
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "buyItem(address,uint256)": {
+        "details": "Follows Checks-Effects-Interactions:           1. Checks  — price met, not own listing           2. Effects — credit seller proceeds, delete listing           3. Interact — safeTransferFrom NFT to buyer         Reverts when the marketplace is paused.",
+        "params": {
+          "nftAddress": "The ERC-721 contract address of the token to buy.",
+          "tokenId": "The token ID to buy."
+        }
+      },
+      "cancelListing(address,uint256)": {
+        "details": "Checks the stored seller address, not the current NFT owner. This correctly         allows cancellation even if the underlying NFT was transferred after listing,         and prevents a new token holder from cancelling someone else's listing.",
+        "params": {
+          "nftAddress": "The ERC-721 contract address of the listed token.",
+          "tokenId": "The token ID of the listing to cancel."
+        }
+      },
+      "getListing(address,uint256)": {
+        "params": {
+          "nftAddress": "The ERC-721 contract address.",
+          "tokenId": "The token ID."
+        },
+        "returns": {
+          "_0": "A Listing struct with price and seller. Price is 0 if not listed."
+        }
+      },
+      "getProceeds(address)": {
+        "params": {
+          "seller": "The seller's wallet address."
+        },
+        "returns": {
+          "_0": "Amount in wei available to withdraw."
+        }
+      },
+      "listItem(address,uint256,uint256)": {
+        "details": "The NFT stays in the seller's wallet. The marketplace must be approved         to transfer it before this call (via ERC-721 approve or setApprovalForAll).         Reverts when the marketplace is paused.",
+        "params": {
+          "nftAddress": "The ERC-721 contract address of the token to list.",
+          "price": "The sale price in wei. Must be greater than zero.",
+          "tokenId": "The token ID to list."
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "pause()": {
+        "details": "Only callable by the contract owner. Use in the event of a critical bug."
+      },
+      "paused()": {
+        "details": "Returns true if the contract is paused, and false otherwise."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      },
+      "unpause()": {
+        "details": "Only callable by the contract owner."
+      },
+      "updateListing(address,uint256,uint256)": {
+        "details": "Emits ItemUpdated (not ItemListed) so off-chain indexers can distinguish         a price change from a brand-new listing. Only the original seller may update.         Reverts when the marketplace is paused.",
+        "params": {
+          "newPrice": "The new sale price in wei. Must be greater than zero.",
+          "nftAddress": "The ERC-721 contract address of the listed token.",
+          "tokenId": "The token ID of the listing to update."
+        }
+      },
+      "withdrawProceeds()": {
+        "details": "Pull-over-push pattern: sellers accumulate proceeds in a mapping and         withdraw on demand. This avoids push failures if a seller is a contract.         Balance is zeroed before the transfer (CEI) to prevent reentrancy,         and nonReentrant provides a second layer of defence."
+      }
+    },
+    "stateVariables": {
+      "s_listings": {
+        "details": "NFT contract address → Token ID → Listing details"
+      },
+      "s_proceeds": {
+        "details": "Seller address → Accumulated proceeds in wei (pull-over-push pattern)"
+      }
+    },
+    "title": "NftMarketplace",
+    "version": 1
+  },
+  "userdoc": {
+    "events": {
+      "ItemBought(address,address,uint256,uint256)": {
+        "notice": "Fired when an NFT is purchased."
+      },
+      "ItemCancelled(address,address,uint256)": {
+        "notice": "Fired when a seller cancels their listing."
+      },
+      "ItemListed(address,address,uint256,uint256)": {
+        "notice": "Fired when an NFT is listed for sale. Indexed on all three address/id fields         so The Graph can filter by seller, collection, or specific token efficiently."
+      },
+      "ItemUpdated(address,address,uint256,uint256)": {
+        "notice": "Fired when a seller updates their listing price. Separate from ItemListed         so off-chain indexers can distinguish a price change from a new listing."
+      },
+      "ProceedsWithdrawn(address,uint256)": {
+        "notice": "Fired when a seller withdraws accumulated proceeds."
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "buyItem(address,uint256)": {
+        "notice": "Purchase a listed NFT by sending at least the listing price in ETH."
+      },
+      "cancelListing(address,uint256)": {
+        "notice": "Cancel an active listing. Only the seller who created the listing may cancel."
+      },
+      "getListing(address,uint256)": {
+        "notice": "Retrieve the active listing for a specific token."
+      },
+      "getProceeds(address)": {
+        "notice": "Retrieve the accumulated proceeds available for a seller to withdraw."
+      },
+      "listItem(address,uint256,uint256)": {
+        "notice": "List an NFT for sale on the marketplace."
+      },
+      "pause()": {
+        "notice": "Pause the marketplace. Listing, buying, and updating are disabled.         Cancellations and withdrawals remain available so users can recover funds."
+      },
+      "unpause()": {
+        "notice": "Unpause the marketplace and resume normal operations."
+      },
+      "updateListing(address,uint256,uint256)": {
+        "notice": "Update the price of an existing listing."
+      },
+      "withdrawProceeds()": {
+        "notice": "Withdraw all accumulated sale proceeds to the caller's wallet."
+      }
+    },
+    "notice": "A non-custodial NFT marketplace. Sellers keep their NFT in their wallet         until a buyer purchases it. The marketplace only holds ETH proceeds —         never the NFTs themselves.",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 303,
+        "contract": "contracts/nftMarketplace.sol:NftMarketplace",
+        "label": "_paused",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_bool"
+      },
+      {
+        "astId": 8,
+        "contract": "contracts/nftMarketplace.sol:NftMarketplace",
+        "label": "_owner",
+        "offset": 1,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 762,
+        "contract": "contracts/nftMarketplace.sol:NftMarketplace",
+        "label": "s_listings",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_mapping(t_uint256,t_struct(Listing)705_storage))"
+      },
+      {
+        "astId": 767,
+        "contract": "contracts/nftMarketplace.sol:NftMarketplace",
+        "label": "s_proceeds",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_address,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_mapping(t_uint256,t_struct(Listing)705_storage))": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => mapping(uint256 => struct NftMarketplace.Listing))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_uint256,t_struct(Listing)705_storage)"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_uint256,t_struct(Listing)705_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct NftMarketplace.Listing)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Listing)705_storage"
+      },
+      "t_struct(Listing)705_storage": {
+        "encoding": "inplace",
+        "label": "struct NftMarketplace.Listing",
+        "members": [
+          {
+            "astId": 702,
+            "contract": "contracts/nftMarketplace.sol:NftMarketplace",
+            "label": "price",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 704,
+            "contract": "contracts/nftMarketplace.sol:NftMarketplace",
+            "label": "seller",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
